@@ -6,7 +6,7 @@
   "homepage": "https://trossr32.github.io/iht-calc",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trossr32/iht-calc",
+    "url": "https://github.com/trossr32/iht-calc"
   },
   "license": "Apache-2.0",
   "scripts": {
