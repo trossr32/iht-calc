@@ -75,10 +75,12 @@ export class AppUserEstateValueResponse {
   ) {}
 
   get nilRateBandAllowance(): number {
-    if (this.totalAssetsExclHeldInTrusts <= AppUserEstateValueResponse.NilRateBandTaperThreshold)
+    //if (this.totalAssetsExclHeldInTrusts <= AppUserEstateValueResponse.NilRateBandTaperThreshold)
+    if (this.grossEstateValue <= AppUserEstateValueResponse.NilRateBandTaperThreshold)
       return AppUserEstateValueResponse.BaseNilRateBandAllowance;
 
-    const excess = this.totalAssetsExclHeldInTrusts - AppUserEstateValueResponse.NilRateBandTaperThreshold;
+    //const excess = this.totalAssetsExclHeldInTrusts - AppUserEstateValueResponse.NilRateBandTaperThreshold;
+    const excess = this.grossEstateValue - AppUserEstateValueResponse.NilRateBandTaperThreshold;
     const reduction = excess / 2;
 
     if (reduction >= AppUserEstateValueResponse.BaseNilRateBandAllowance)
@@ -198,7 +200,8 @@ export class AppUserEstateValueResponse {
   }
 
   get inheritanceTaxPayable(): number {
-    const totalAssetsLessSpousalConsideration = this.totalAssetsExclHeldInTrusts - this.totalSpousalValueExclHeldInTrusts;
+    //const totalAssetsLessSpousalConsideration = this.totalAssetsExclHeldInTrusts - this.totalSpousalValueExclHeldInTrusts;
+    const totalAssetsLessSpousalConsideration = this.grossEstateValue - this.totalSpousalValueExclHeldInTrusts;
     const totalAssetsLessSpousalAndCharityConsiderations = totalAssetsLessSpousalConsideration - this.totalCharitableValueExclHeldInTrusts;
     const nilRateBandAllowance = this.nilRateBandAllowance + this.residenceNilRateBandAllowance;
 
