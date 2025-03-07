@@ -160,7 +160,7 @@ export class AppUserEstateValueResponse {
   }
 
   get isMoreThan10PercentAllocatedToCharities(): boolean {
-    return this.totalCharitableValueExclHeldInTrusts >= this.grossEstateValue * 0.1;
+    return this.totalCharitableValueExclHeldInTrusts !== 0 && this.grossEstateValue !== 0 && this.totalCharitableValueExclHeldInTrusts >= this.grossEstateValue * 0.1;
   }
 
   get inheritanceTaxRate(): number {
