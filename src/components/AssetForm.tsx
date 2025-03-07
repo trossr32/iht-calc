@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppUserEstateValueAsset, AssetTypeDescriptions } from '../types';
+import { AppUserEstateValueAsset, AssetTypeDescriptions, AssetTypeEnum } from '../types';
 
 interface AssetFormProps {
   asset: AppUserEstateValueAsset;
@@ -10,11 +10,17 @@ interface AssetFormProps {
 export function AssetForm({ asset, onUpdate, onDelete }: AssetFormProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    const newValue = type === 'checkbox' 
-      ? (e.target as HTMLInputElement).checked
-      : type === 'number' 
-        ? parseFloat(value) 
-        : value;
+    let newValue: unknown;
+
+    if (type === 'checkbox') {
+      newValue = (e.target as HTMLInputElement).checked;
+    } else if (type === 'number') {
+      newValue = parseFloat(value);
+    } else if (name === 'AssetType') {
+      newValue = parseInt(value, 10) as AssetTypeEnum;
+    } else {
+      newValue = value;
+    }
 
     onUpdate({
       ...asset,
